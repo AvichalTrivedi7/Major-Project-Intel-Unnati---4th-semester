@@ -244,6 +244,3 @@ Developed as part of the **Intel Unnati Program** focusing on real-world AI appl
 
 ---
 
-## 📜 License
-
-This project is for educational and demonstration purposes.

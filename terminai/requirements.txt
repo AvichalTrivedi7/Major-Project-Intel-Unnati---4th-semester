@@ -1,0 +1,5 @@
+rich>=13.0.0
+python-dotenv>=1.0.0
+openai>=1.0.0
+# Optional: uncomment for local model support
+# llama-cpp-python>=0.2.0

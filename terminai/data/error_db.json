@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Command Not Found",
+    "keywords": ["command not found", "not recognized", "is not recognized"],
+    "suggestion": "The command does not exist or is not in your PATH.\n\nFix: Check the spelling, or install the missing tool.\n  - On Ubuntu/Debian: sudo apt install <package>\n  - On macOS: brew install <package>\n  - On Windows: Ensure the program is installed and its directory is in the PATH environment variable."
+  },
+  {
+    "category": "File Not Found",
+    "keywords": ["no such file", "cannot find the path", "cannot find the file", "filenotfounderror"],
+    "suggestion": "The specified file or directory does not exist.\n\nFix: Verify the path is correct. Use 'ls' (Linux/macOS) or 'dir' (Windows) to list files in the current directory."
+  },
+  {
+    "category": "Permission Denied",
+    "keywords": ["permission denied", "access is denied"],
+    "suggestion": "You do not have permission to access this resource.\n\nFix:\n  - On Linux/macOS: Prefix the command with 'sudo', or change file permissions with 'chmod'.\n  - On Windows: Run the terminal as Administrator."
+  },
+  {
+    "category": "Module Not Found",
+    "keywords": ["no module named", "modulenotfounderror"],
+    "suggestion": "A required Python module is not installed.\n\nFix: Install it with:\n  pip install <module_name>"
+  },
+  {
+    "category": "Import Error",
+    "keywords": ["importerror", "cannot import name"],
+    "suggestion": "Python could not import a name from a module.\n\nFix: Check that the module is installed and the name is spelled correctly. The module version may also be incompatible."
+  },
+  {
+    "category": "Syntax Error",
+    "keywords": ["syntaxerror", "invalid syntax"],
+    "suggestion": "There is a syntax error in the code.\n\nFix: Check the indicated line for missing colons, brackets, parentheses, or incorrect indentation."
+  },
+  {
+    "category": "Name Error",
+    "keywords": ["nameerror", "is not defined"],
+    "suggestion": "A variable or function name is used before it is defined.\n\nFix: Check for typos in variable names, or make sure the variable is defined before use."
+  },
+  {
+    "category": "Type Error",
+    "keywords": ["typeerror"],
+    "suggestion": "An operation was applied to an object of the wrong type.\n\nFix: Check argument types. A common cause is passing a string where an int is expected, or calling a non-callable object."
+  },
+  {
+    "category": "Connection Error",
+    "keywords": ["connection refused", "connectionrefused", "connectionerror"],
+    "suggestion": "The connection to a remote host was refused.\n\nFix: Verify the server is running and the host/port are correct. Check your network or firewall settings."
+  },
+  {
+    "category": "Timeout",
+    "keywords": ["timeout", "timed out"],
+    "suggestion": "The command or connection timed out.\n\nFix: Check network connectivity, increase the timeout value, or verify the target service is responsive."
+  }
+]

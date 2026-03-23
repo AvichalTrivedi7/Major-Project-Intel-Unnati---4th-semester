@@ -232,7 +232,7 @@ TERMINAI_API_KEY=your_api_key_here
 
 ## 👨‍💻 Author
 
-**Avichal Trivedi**
+_**Avichal Trivedi**_
 
 AI & Software Development Enthusiast
 

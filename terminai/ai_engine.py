@@ -110,7 +110,7 @@ def _query_local(prompt: str) -> Optional[str]:
 # ── Google Gemini API backend ────────────────────────────────────────────────
 
 def _query_google(prompt: str) -> Optional[str]:
-    """Query Google Gemini using new SDK with proper structure."""
+    """Query Google Gemini using new SDK with manual candidate extraction."""
     if not GOOGLE_API_KEY:
         return None
 
@@ -128,8 +128,13 @@ def _query_google(prompt: str) -> Optional[str]:
                 }
             ],
         )
-        if hasattr(response, "text") and response.text:
-            return response.text.strip()
+        # Extract text manually (response.text is unreliable)
+        if response and hasattr(response, "candidates"):
+            for candidate in response.candidates:
+                if hasattr(candidate, "content") and candidate.content:
+                    parts = candidate.content.parts
+                    if parts and hasattr(parts[0], "text"):
+                        return parts[0].text.strip()
         return None
     except Exception:
         return None

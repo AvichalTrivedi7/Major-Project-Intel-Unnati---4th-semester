@@ -51,9 +51,9 @@ def _parse_response(raw: str) -> Dict[str, str]:
     result["fix"] = (
         fix_match.group(1).strip() if fix_match else "Review the error output manually."
     )
-    result["command"] = (
-        command_match.group(1).strip() if command_match else ""
-    )
+    raw_cmd = command_match.group(1).strip() if command_match else ""
+    # Strip markdown backticks that AI models often wrap commands in
+    result["command"] = raw_cmd.strip("`").strip()
 
     return result
 

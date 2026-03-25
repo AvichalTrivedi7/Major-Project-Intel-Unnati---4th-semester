@@ -27,7 +27,7 @@ INTERACTIVE_COMMANDS = {"python", "python3", "py", "node", "bash", "sh", "zsh",
 # Provider: "google" for Gemini API, "local" for llama-cpp-python
 AI_PROVIDER = os.getenv("TERMINAI_AI_PROVIDER", "google")
 GOOGLE_API_KEY = os.getenv("TERMINAI_GOOGLE_API_KEY", "")
-GOOGLE_MODEL = os.getenv("TERMINAI_GOOGLE_MODEL", "gemini-1.5-flash")
+GOOGLE_MODEL = os.getenv("TERMINAI_GOOGLE_MODEL", "gemini-2.5-flash")
 
 # Local model settings (llama-cpp-python)
 LOCAL_MODEL_PATH = os.getenv("TERMINAI_LOCAL_MODEL_PATH", "")

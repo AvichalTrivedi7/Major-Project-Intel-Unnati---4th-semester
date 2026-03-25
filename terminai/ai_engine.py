@@ -1,8 +1,8 @@
 """AI Suggestion Engine for TerminAI.
 
 Supports two backends:
-  1. Local model via llama-cpp-python (preferred)
-  2. API fallback via OpenAI-compatible SDK
+  1. Google Gemini API via google-genai SDK (preferred)
+  2. Local model via llama-cpp-python (fallback)
 
 Returns structured suggestions parsed from the AI response.
 """
@@ -12,9 +12,8 @@ from typing import Optional, Dict
 
 from config import (
     AI_PROVIDER,
-    AI_API_KEY,
-    AI_MODEL,
-    AI_API_BASE,
+    GOOGLE_API_KEY,
+    GOOGLE_MODEL,
     LOCAL_MODEL_PATH,
     LOCAL_MODEL_CONTEXT,
     LOCAL_MODEL_THREADS,
@@ -108,28 +107,29 @@ def _query_local(prompt: str) -> Optional[str]:
         return None
 
 
-# ── API backend (OpenAI-compatible) ──────────────────────────────────────────
+# ── Google Gemini API backend ────────────────────────────────────────────────
 
-def _query_api(prompt: str) -> Optional[str]:
-    """Query an OpenAI-compatible API."""
-    if not AI_API_KEY:
+def _query_google(prompt: str) -> Optional[str]:
+    """Query Google Gemini using new SDK with proper structure."""
+    if not GOOGLE_API_KEY:
         return None
 
     try:
-        from openai import OpenAI
+        from google import genai
 
-        client = OpenAI(api_key=AI_API_KEY, base_url=AI_API_BASE)
-        response = client.chat.completions.create(
-            model=AI_MODEL,
-            messages=[
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": prompt},
+        client = genai.Client(api_key=GOOGLE_API_KEY)
+        full_prompt = f"{SYSTEM_PROMPT}\n\n{prompt}"
+        response = client.models.generate_content(
+            model=GOOGLE_MODEL,
+            contents=[
+                {
+                    "role": "user",
+                    "parts": [{"text": full_prompt}]
+                }
             ],
-            max_tokens=256,
-            temperature=0.2,
         )
-        return response.choices[0].message.content
-    except ImportError:
+        if hasattr(response, "text") and response.text:
+            return response.text.strip()
         return None
     except Exception:
         return None
@@ -157,10 +157,10 @@ def get_ai_suggestion(command: str, error: str, cwd: str = "") -> Optional[Dict[
     if AI_PROVIDER == "local":
         raw_response = _query_local(prompt)
         if raw_response is None:
-            # Fallback to API
-            raw_response = _query_api(prompt)
+            # Fallback to Google
+            raw_response = _query_google(prompt)
     else:
-        raw_response = _query_api(prompt)
+        raw_response = _query_google(prompt)
         if raw_response is None:
             # Fallback to local
             raw_response = _query_local(prompt)
@@ -173,13 +173,13 @@ def get_ai_suggestion(command: str, error: str, cwd: str = "") -> Optional[Dict[
 
 def _fallback_response() -> Dict[str, str]:
     """Return a safe fallback when AI is unavailable."""
-    has_api = bool(AI_API_KEY)
+    has_google = bool(GOOGLE_API_KEY)
     has_local = bool(LOCAL_MODEL_PATH)
 
-    if not has_api and not has_local:
+    if not has_google and not has_local:
         return {
             "explanation": "AI is not configured.",
-            "fix": "Set your API key in the .env file (TERMINAI_API_KEY) or provide a local model path (TERMINAI_LOCAL_MODEL_PATH).",
+            "fix": "Set your Google API key in the .env file (TERMINAI_GOOGLE_API_KEY) or provide a local model path (TERMINAI_LOCAL_MODEL_PATH).",
             "command": "",
         }
 

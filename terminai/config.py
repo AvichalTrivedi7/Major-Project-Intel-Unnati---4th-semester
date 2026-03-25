@@ -24,11 +24,10 @@ INTERACTIVE_COMMANDS = {"python", "python3", "py", "node", "bash", "sh", "zsh",
                         "irb", "ruby", "lua", "R", "julia", "powershell", "pwsh"}
 
 # AI settings
-# Provider: "local" for llama-cpp-python, "api" for OpenAI-compatible API
-AI_PROVIDER = os.getenv("TERMINAI_AI_PROVIDER", "api")
-AI_API_KEY = os.getenv("TERMINAI_API_KEY", "")
-AI_MODEL = os.getenv("TERMINAI_MODEL", "gpt-3.5-turbo")
-AI_API_BASE = os.getenv("TERMINAI_API_BASE", "https://api.openai.com/v1")
+# Provider: "google" for Gemini API, "local" for llama-cpp-python
+AI_PROVIDER = os.getenv("TERMINAI_AI_PROVIDER", "google")
+GOOGLE_API_KEY = os.getenv("TERMINAI_GOOGLE_API_KEY", "")
+GOOGLE_MODEL = os.getenv("TERMINAI_GOOGLE_MODEL", "gemini-1.5-flash")
 
 # Local model settings (llama-cpp-python)
 LOCAL_MODEL_PATH = os.getenv("TERMINAI_LOCAL_MODEL_PATH", "")
@@ -37,4 +36,4 @@ LOCAL_MODEL_THREADS = int(os.getenv("TERMINAI_LOCAL_MODEL_THREADS", "4"))
 
 # UI settings
 APP_NAME = "TerminAI"
-VERSION = "0.2.0"
+VERSION = "0.3.0"

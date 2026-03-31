@@ -62,7 +62,7 @@ TerminAI introduces an intelligent layer on top of the terminal:
 * Generates intelligent fixes when no predefined solution exists
 * Supports:
 
-  * OpenAI API (via API key)
+  * Gemini API (via API key)
   * Local models (llama-cpp)
 
 ---

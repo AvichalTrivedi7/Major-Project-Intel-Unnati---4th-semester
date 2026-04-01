@@ -230,14 +230,6 @@ TERMINAI_API_KEY=your_api_key_here
 
 ---
 
-## 👨‍💻 Author
-
-_**Avichal Trivedi**_
-
-AI & Software Development Enthusiast
-
----
-
 ## ⭐ Acknowledgment
 
 Developed as part of the **Intel Unnati Program** focusing on real-world AI applications in developer tools.
